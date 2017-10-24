@@ -29,7 +29,6 @@ class SortContainer extends Component {
   bubbleSort() {
 
     let sortArray = [...this.props.pixelArray];
-    console.log(sortArray[0]);
     var len = sortArray.length;
      for (let i = len - 1; i >= 0; i--){
        for(let j = 1; j <= i; j++){
@@ -37,10 +36,10 @@ class SortContainer extends Component {
              let temp = sortArray[j-1];
              sortArray[j-1] = sortArray[j];
              sortArray[j] = temp;
+             updateArrays(sortArray);
           }
-          updateArrays(sortArray);
+
        }
-       updateArrays(sortArray);
      }
      return;
   }

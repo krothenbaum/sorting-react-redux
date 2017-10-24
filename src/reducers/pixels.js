@@ -26,7 +26,8 @@ export default (state = initialState, action) => {
       }
     case UPDATE_ARRAYS:
       return {
-        ...state
+        ...state,
+        pixelArray: [...action.pixels]
       }
 
     default:
@@ -58,11 +59,12 @@ export const createArrays = () => {
   }
 }
 
-export const updateArrays = (element) => {
-  console.log('UPDATING', element);
+export const updateArrays = (array) => {
+  console.log('UPDATING');
   return dispatch => {
     dispatch({
       type: UPDATE_ARRAYS,
+      pixels: array
 
     })
   }
