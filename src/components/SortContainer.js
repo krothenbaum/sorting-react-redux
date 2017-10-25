@@ -13,35 +13,53 @@ import {
 // import '../css/main.css'
 
 class SortContainer extends Component {
-  constructor() {
-    super();
+  // constructor() {
+  //   super();
+  //
+  //   // this.startSort = this.startSort.bind(this);
+  //   // this.timeoutSort = this.timeoutSort.bind(this);
+  // }
 
-    this.startSort = this.startSort.bind(this);
-  }
-
-  startSort(e) {
+  startSort = (e) => {
     e.preventDefault();
     console.log('Start Sort');
+    // this.bubbleSort();
     this.bubbleSort();
     console.log('End Sort');
   }
 
-  bubbleSort() {
+  timeoutSort = (newArr, j) => {
+    let k = 0;
+    return setTimeout(() => {
+      if (newArr[j] < newArr[j - 1]) {
+        let tmp = newArr[j];
+        newArr[j] = newArr[j - 1];
+        newArr[j - 1] = tmp;
+        this.props.updateArrays(newArr);
+      }
+      k++;
+    }, k*5);
+  }
 
-    let sortArray = [...this.props.pixelArray];
-    var len = sortArray.length;
-     for (let i = len - 1; i >= 0; i--){
-       for(let j = 1; j <= i; j++){
-         if(sortArray[j-1].props.sortValue > sortArray[j].props.sortValue){
-             let temp = sortArray[j-1];
-             sortArray[j-1] = sortArray[j];
-             sortArray[j] = temp;
-             updateArrays(sortArray);
-          }
-
-       }
-     }
-     return;
+  bubbleSort = () => {
+    // const update = this.props.updateArrays;
+    let newArr = this.props.sortArray;
+    let length = this.props.sortArray.length;
+    for (let i = (length - 1); i >= 0; i--) {
+        //Number of passes
+        for (let j = (length - i); j > 0; j--) {
+            //Compare the adjacent positions
+            console.log(this.timeoutSort);
+            (this.timeoutSort(newArr, j));
+            // if (newArr[j] < newArr[j - 1]) {
+            //     //Swap the numbers
+            //     let tmp = newArr[j];
+            //     newArr[j] = newArr[j - 1];
+            //     newArr[j - 1] = tmp;
+            //     this.props.updateArrays(newArr);
+            // }
+        }
+    }
   }
 
   componentDidMount() {

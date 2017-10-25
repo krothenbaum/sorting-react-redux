@@ -17,6 +17,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+
     case CREATE_ARRAYS:
       return {
         ...state,
@@ -25,9 +26,10 @@ export default (state = initialState, action) => {
         pixelArray: [...action.pixels]
       }
     case UPDATE_ARRAYS:
+
       return {
         ...state,
-        pixelArray: [...action.pixels]
+        pixelArray: action.pixels
       }
 
     default:
@@ -41,7 +43,7 @@ export const createArrays = () => {
   let tempPixelArray = [];
   let colorValues = ["red","yellow","green","blue","violet"];
 
-  for(let i = 0; i < 1600; i++) {
+  for(let i = 0; i < 256; i++) {
     let rand = Math.floor(Math.random() * colorValues.length);
     let randomColor = colorValues[rand]
     values.push(rand);
@@ -60,12 +62,18 @@ export const createArrays = () => {
 }
 
 export const updateArrays = (array) => {
-  console.log('UPDATING');
+
+  let tempPixelArray = [];
+  let colorValues = ["red","yellow","green","blue","violet"];
+  for(let i = 0; i < 256; i++ ) {
+    let randomColor = colorValues[array[i]];
+    tempPixelArray.push(<Pixel color={randomColor} key={i} sortValue={array[i]}/>);
+  }
+
   return dispatch => {
     dispatch({
       type: UPDATE_ARRAYS,
-      pixels: array
-
+      pixels: tempPixelArray
     })
   }
 }
