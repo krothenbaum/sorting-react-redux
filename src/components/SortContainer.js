@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-// import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import BubbleSort from './BubbleSort';
+// import CocktailSort from './CocktailSort';
+import CombSort from './CombSort'
 
 import {
   updateArrays,
@@ -13,24 +14,6 @@ import {
 // import '../css/main.css'
 
 class SortContainer extends Component {
-  // constructor() {
-  //   super();
-  //
-  //   // this.startSort = this.startSort.bind(this);
-  //   // this.timeoutSort = this.timeoutSort.bind(this);
-  // }
-
-  startSort = (e) => {
-    e.preventDefault();
-    console.log('Start Sort');
-    // this.bubbleSort();
-    this.bubbleSort();
-    console.log('End Sort');
-  }
-
-
-
-
 
   componentDidMount() {
     this.props.createArrays();
@@ -40,6 +23,7 @@ class SortContainer extends Component {
     return (
       <div className="container">
         <BubbleSort />
+        <CombSort />
       </div>
     )
   }

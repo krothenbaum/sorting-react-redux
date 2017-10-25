@@ -58,6 +58,7 @@ table {
   width: 402px;
   height: 402px;
   border: 1px solid black;
+	margin-bottom: 25px;
 }
 
 .pixel {

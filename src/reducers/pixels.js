@@ -62,7 +62,7 @@ export const createArrays = () => {
 }
 
 export const updateArrays = (array) => {
-
+  console.log(array);
   let tempPixelArray = [];
   let colorValues = ["red","yellow","green","blue","violet"];
   for(let i = 0; i < 256; i++ ) {
