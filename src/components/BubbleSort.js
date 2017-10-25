@@ -54,7 +54,7 @@ class BubbleSort extends Component {
     return (
       <div className="sort-container">
         {this.state.pixels}
-        <button onClick={this.bubbleSort}>Start</button>
+        <button onClick={this.bubbleSort}>Start Bubble Sort</button>
       </div>
     )
   }

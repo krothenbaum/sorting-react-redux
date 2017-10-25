@@ -53,7 +53,7 @@ class InsertionSort extends Component {
     return (
       <div className="sort-container">
         {this.state.pixels}
-        <button onClick={this.insertionSort}>Start</button>
+        <button onClick={this.insertionSort}>Start insertion Sort</button>
       </div>
     )
   }

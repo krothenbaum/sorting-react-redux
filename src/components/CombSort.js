@@ -52,7 +52,7 @@ class CombSort extends Component {
     return (
       <div className="sort-container">
         {this.state.pixels}
-        <button onClick={this.combSort}>Start</button>
+        <button onClick={this.combSort}>Start Comb Sort</button>
       </div>
     )
   }
