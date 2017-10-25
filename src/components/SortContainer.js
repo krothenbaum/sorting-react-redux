@@ -6,6 +6,7 @@ import BubbleSort from './BubbleSort';
 import CocktailSort from './CocktailSort';
 import CombSort from './CombSort';
 import InsertionSort from './InsertionSort';
+import MergeSort from './MergeSort';
 
 import {
   updateArrays,
@@ -27,6 +28,7 @@ class SortContainer extends Component {
         <BubbleSort />
         <CombSort />
         <InsertionSort />
+        <MergeSort />
       </div>
     )
   }

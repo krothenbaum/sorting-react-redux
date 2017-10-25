@@ -6,7 +6,7 @@ class Pixel extends Component {
 
   render () {
     return (
-      <div className={`pixel ${ this.props.color }`}>
+      <div className={`pixel ${this.props.color}`}>
       </div>
     )
   }
