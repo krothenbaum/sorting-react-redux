@@ -2,38 +2,46 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import Pixel from './Pixel';
+
 import {
   updateArrays,
   createArrays
 } from '../reducers/pixels';
 
 class CombSort extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     isSorted: true
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    let tempPixelArray = [];
+    for(let i = 0; i < 256; i++ ) {
+      tempPixelArray.push(<Pixel color={props.colorArray[i]} key={i} sortValue={props.sortArray[i]}/>);
+    }
+    let state = {
+      pixels: tempPixelArray
+    }
+    this.state = state;
+  }
 
   combSort = () => {
-    let array = this.props.sortArray;
+    let array = this.state.pixels;
+    let length = array.length;
 
     const timeoutSort = (array, i, interval) => {
       let k = 0;
       return setTimeout(() => {
-        if (array[i] > array[i + interval]) {
+        if (array[i].props.sortValue > array[i + interval].props.sortValue) {
           let small = array[i + interval];
           array[i + interval] = array[i];
           array[i] = small;
-          this.props.updateArrays(array);
+          this.setState({pixels: [...array]});
         }
         k++;
-      }, k*5);
+      }, k);
     }
 
-    let interval = Math.floor(array.length / 1.3);
+    let interval = Math.floor(length / 1.3);
     while (interval > 0) {
-      for(let i = 0 ; i + interval < array.length; i++) {
+      for(let i = 0 ; i + interval < length; i++) {
         timeoutSort(array, i, interval);
       }
       interval = Math.floor(interval / 1.3);
@@ -43,7 +51,7 @@ class CombSort extends Component {
   render () {
     return (
       <div className="sort-container">
-        {this.props.pixelArray}
+        {this.state.pixels}
         <button onClick={this.combSort}>Start</button>
       </div>
     )
@@ -52,8 +60,7 @@ class CombSort extends Component {
 
 const mapStateToProps = state => ({
   colorArray: state.pixels.colorArray,
-  sortArray: state.pixels.sortArray,
-  pixelArray: state.pixels.pixelArray
+  sortArray: state.pixels.sortArray
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

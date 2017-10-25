@@ -11,8 +11,7 @@ export const CREATE_ARRAYS = 'pixels/CREATE_ARRAYS';
 
 const initialState = {
   colorArray: [],
-  sortArray: [],
-  pixelArray: []
+  sortArray: []
 }
 
 export default (state = initialState, action) => {
@@ -23,13 +22,11 @@ export default (state = initialState, action) => {
         ...state,
         colorArray: [...action.colors],
         sortArray: [...action.values],
-        pixelArray: [...action.pixels]
       }
     case UPDATE_ARRAYS:
 
       return {
-        ...state,
-        pixelArray: action.pixels
+        ...state
       }
 
     default:
@@ -40,7 +37,6 @@ export default (state = initialState, action) => {
 export const createArrays = () => {
   let values = [];
   let colors = [];
-  let tempPixelArray = [];
   let colorValues = ["red","yellow","green","blue","violet"];
 
   for(let i = 0; i < 256; i++) {
@@ -48,21 +44,18 @@ export const createArrays = () => {
     let randomColor = colorValues[rand]
     values.push(rand);
     colors.push(randomColor);
-    tempPixelArray.push(<Pixel color={randomColor} key={i} sortValue={rand}/>);
   }
 
   return dispatch => {
     dispatch({
       type: CREATE_ARRAYS,
       colors: colors,
-      values: values,
-      pixels: tempPixelArray
+      values: values
     })
   }
 }
 
 export const updateArrays = (array) => {
-  console.log(array);
   let tempPixelArray = [];
   let colorValues = ["red","yellow","green","blue","violet"];
   for(let i = 0; i < 256; i++ ) {
@@ -72,8 +65,7 @@ export const updateArrays = (array) => {
 
   return dispatch => {
     dispatch({
-      type: UPDATE_ARRAYS,
-      pixels: tempPixelArray
+      type: UPDATE_ARRAYS
     })
   }
 }

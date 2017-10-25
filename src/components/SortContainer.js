@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import BubbleSort from './BubbleSort';
-// import CocktailSort from './CocktailSort';
-import CombSort from './CombSort'
+import CocktailSort from './CocktailSort';
+import CombSort from './CombSort';
+import InsertionSort from './InsertionSort';
 
 import {
   updateArrays,
@@ -14,16 +15,18 @@ import {
 // import '../css/main.css'
 
 class SortContainer extends Component {
-
-  componentDidMount() {
-    this.props.createArrays();
+  constructor(props) {
+    super(props);
+    props.createArrays();
   }
 
   render () {
+    // this.props.createArrays();
     return (
       <div className="container">
         <BubbleSort />
         <CombSort />
+        <InsertionSort />
       </div>
     )
   }
@@ -31,8 +34,7 @@ class SortContainer extends Component {
 
 const mapStateToProps = state => ({
   colorArray: state.pixels.colorArray,
-  sortArray: state.pixels.sortArray,
-  pixelArray: state.pixels.pixelArray
+  sortArray: state.pixels.sortArray
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

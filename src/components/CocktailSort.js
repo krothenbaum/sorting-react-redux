@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import Pixel from './Pixel';
+
 import {
   updateArrays,
   createArrays
@@ -10,67 +12,74 @@ import {
 class CocktailSort extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isSorted: true
-    };
+    let tempPixelArray = [];
+    for(let i = 0; i < 256; i++ ) {
+      tempPixelArray.push(<Pixel color={props.colorArray[i]} key={i} sortValue={props.sortArray[i]}/>);
+    }
+    let state = {
+      pixels: tempPixelArray
+    }
+    this.state = state;
   }
 
   cocktailSort = () => {
-    let newArr = this.props.sortArray;
-    // let isSorted = true;
+    let array = this.state.pixels;
+    let length = array.length;
+    let isSorted = true;
 
-    const timeoutSort = (newArr, i) => {
-      console.log('START FIRST SORT');
-      let k = 0;
+    const timeoutSort = (array, k) => {
       return setTimeout(() => {
-        if (newArr[i] > newArr[i + 1]) {
-            let temp = newArr[i];
-            newArr[i] = newArr[i + 1];
-            newArr[i+1] = temp;
-            this.setState({isSorted: true});
-            console.log('FIRST IF');
-            this.props.updateArrays(newArr);
-         }
-         k++;
-      }, k*100);
+        this.setState({pixels: [...array]});
+      }, k);
     }
 
-    const timeoutSort2 = (newArr, j) => {
-      let k = 0;
-      return setTimeout(() => {
-        if (newArr[j-1] > newArr[j]) {
-            let temp = newArr[j];
-            newArr[j] = newArr[j - 1];
-            newArr[j - 1] = temp;
-            this.setState({isSorted: true});
-            console.log('SECOND IF');
-            this.props.updateArrays(newArr);
-         }
-        k++;
-      }, k*5);
-    }
+    // const timeoutSort2 = (array, j) => {
+    //   let k = 0;
+    //   return setTimeout(() => {
+    //
+    //     k++;
+    //   }, k);
+    // }
 
-    while (this.state.isSorted) {
-      for (let i = 0; i < newArr.length - 1;i++) {
-        (timeoutSort(newArr, i));
+    while (isSorted) {
+
+      for (let i = 0; i < length - 1;i++) {
+        let k = 0;
+        if (array[i].props.sortValue > array[i + 1].props.sortValue) {
+            let temp = array[i];
+            array[i] = array[i + 1];
+            array[i+1] = temp;
+            isSorted = true;
+            timeoutSort(array, k);
+            k++;
+            // this.setState({pixels: [...array]});
+         }
       }
 
-      if (!this.state.isSorted)
+      if (!isSorted)
           break;
 
-      this.setState({isSorted: false});
+      isSorted = false;
 
-      for (let j = newArr.length - 1; j > 0; j--) {
-        (timeoutSort2(newArr, j));
+      for (let j = length - 1; j > 0; j--) {
+        let l = 0;
+        if (array[j-1].props.sortValue > array[j].props.sortValue) {
+            let temp = array[j];
+            array[j] = array[j - 1];
+            array[j - 1] = temp;
+            isSorted = true;
+            timeoutSort(array, l);
+            l++;
+            // this.setState({pixels: [...array]});
+         }
       }
-
     }
   }
 
   render () {
     return (
       <div className="sort-container">
-        {this.props.pixelArray}
+        {this.state.pixels}
         <button onClick={this.cocktailSort}>Start</button>
       </div>
     )
@@ -79,8 +88,7 @@ class CocktailSort extends Component {
 
 const mapStateToProps = state => ({
   colorArray: state.pixels.colorArray,
-  sortArray: state.pixels.sortArray,
-  pixelArray: state.pixels.pixelArray
+  sortArray: state.pixels.sortArray
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
